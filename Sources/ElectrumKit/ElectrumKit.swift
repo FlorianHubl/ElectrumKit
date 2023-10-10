@@ -274,7 +274,7 @@ public struct Electrum: BlockExplorer {
         case blockHashNotFound
     }
 
-    let tcp: EasyTCP
+    public let tcp: EasyTCP
     
     public init(hostName: String, port: Int, using connection: NWParameters, debug: Bool? = nil) {
         self.tcp = EasyTCP(hostName: hostName, port: port, using: connection, lastLetters: ": 1}", debug: debug ?? false)
