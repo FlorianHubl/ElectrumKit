@@ -62,6 +62,10 @@ public struct Electrum: BlockExplorer {
         return outspends
     }
     
+    public func testConnection() -> Bool {
+        tcp.connection.state == .ready
+    }
+    
     
     public func addressUTXOs(address: String) async throws -> MempoolKit.UTXOs {
         

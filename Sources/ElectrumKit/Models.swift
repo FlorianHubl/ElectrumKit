@@ -45,20 +45,20 @@ public struct ElectrumTransaction: Codable {
     }
 }
 
-struct ElectrumBlock: Codable {
-    let header: String
-    let branch: [String]
-    let root: String
+public struct ElectrumBlock: Codable {
+    public let header: String
+    public let branch: [String]
+    public let root: String
 }
 
-struct ElectrumTip: Codable {
-    let hex: String
-    let height: Int
+public struct ElectrumTip: Codable {
+    public let hex: String
+    public let height: Int
 }
 
-struct ElectrumAddressTX: Codable {
-    let tx_hash: String
-    let height: Int
+public struct ElectrumAddressTX: Codable {
+    public let tx_hash: String
+    public let height: Int
     
     enum CodingKeys: String, CodingKey {
         case tx_hash
@@ -68,9 +68,9 @@ struct ElectrumAddressTX: Codable {
 
 typealias ElectrumAddressTXs = [ElectrumAddressTX]
 
-struct ElectrumUTXO: Codable {
-    let tx_hash: String
-    let tx_pos, height, value: Int
+public struct ElectrumUTXO: Codable {
+    public let tx_hash: String
+    public let tx_pos, height, value: Int
     
     enum CodingKeys: String, CodingKey {
         case tx_hash
