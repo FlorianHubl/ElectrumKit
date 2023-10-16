@@ -43,6 +43,7 @@ final class ElectrumKitTests: XCTestCase {
     func testAddressTXS() async throws {
         let electrum = Electrum(hostName: "bitcoin.lukechilds.co", port: 50001, using: .tcp, debug: true)
         let txs = try await electrum.addressTXS(address: "1Ecc7owFDacRgjcm2Vfw17eW2zM5Gjg4SX")
+        print(txs.count)
     }
     
     @available(iOS 13.0.0, *)

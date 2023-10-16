@@ -7,7 +7,13 @@ import CryptoKit
 import LibWally
 import SwiftUI
 
-@available(iOS 13.0, *)
+extension Data {
+    func hexEncodedString() -> String {
+        return map { String(format: "%02hhx", $0) }.joined()
+    }
+}
+
+@available(iOS 13.0, macOS 10.15, *)
 public struct Electrum: BlockExplorer {
     public func transactionOutspends(txid: String) async throws -> MempoolKit.TransactionOutspends {
         var outspends = MempoolKit.TransactionOutspends()
@@ -69,7 +75,7 @@ public struct Electrum: BlockExplorer {
     
     public func addressUTXOs(address: String) async throws -> MempoolKit.UTXOs {
         
-        let adr = convertToElectrumAddress(address: address)
+        let adr = try convertToElectrumAddress(address: address)
         
         let electrumUtxos = try await tcp.sendJsonRpc(input: ElectrumCall(method: .addressUTXOsRequest, params: [adr]), output: ElectrumResult<ElectrumUTXOs>.self).result
 
@@ -90,7 +96,7 @@ public struct Electrum: BlockExplorer {
     
     func getMempoolTX(address: String) async throws -> MempoolKit.Transactions {
         
-        let adr = convertToElectrumAddress(address: address)
+        let adr = try convertToElectrumAddress(address: address)
         
         let txs = try await tcp.sendJsonRpc(input: ElectrumCall(method: .addressMempoolTXsRequest, params: [adr]), output: ElectrumResult<ElectrumAddressTXs>.self).result
         
@@ -116,13 +122,14 @@ public struct Electrum: BlockExplorer {
         return Data(hash)
     }
     
-    func convertToElectrumAddress(address: String) -> String {
+    func convertToElectrumAddress(address: String) throws -> String {
         print("convertToElectrumAddress: \(address)")
-        let a = LibWally.Address(address)!
-        let b = a.scriptPubKey.bytes
+        let a = try LibWally.Address(string: address)
+        let b = a.scriptPubKey.data
         let hash = sha256(b)
         let reversed = Data(hash.reversed())
-        let hex = reversed.hexString
+        let hex = reversed.hexEncodedString()
+        print(hex)
         return hex
     }
     
@@ -135,7 +142,7 @@ public struct Electrum: BlockExplorer {
     /// - Returns: The confirmed and mempool Transactions from this address
     public func addressTXS(address: String, withPrevOuts: Bool? = nil) async throws -> MempoolKit.Transactions {
         
-        let adr = convertToElectrumAddress(address: address)
+        let adr = try convertToElectrumAddress(address: address)
         
         let txs = try await tcp.sendJsonRpc(input: ElectrumCall(method: .addressTXsRequest, params: [adr]), output: ElectrumResult<ElectrumAddressTXs>.self).result
         let a = txs.map { i in

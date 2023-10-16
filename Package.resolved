@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "easytcp",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FlorianHubl/EasyTCP",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a97d7918b623a05b5e244b85d010904f8f21609c"
+      }
+    },
+    {
+      "identity" : "libwally",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FlorianHubl/LibWally",
+      "state" : {
+        "branch" : "main",
+        "revision" : "20044689f8806f272bf3e838a87b74506b2bce85"
+      }
+    },
+    {
+      "identity" : "mempoolkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FlorianHubl/MempoolKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b04fb5a8f7dec0cb8dd6864237e5631207827081"
+      }
+    },
+    {
+      "identity" : "swifttor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FlorianHubl/SwiftTor",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ad6a859a55050fa5b74c4227b1965bedbd46be55"
+      }
+    }
+  ],
+  "version" : 2
+}
